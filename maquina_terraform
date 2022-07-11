@@ -1,0 +1,103 @@
+{
+  "canIpForward": false,
+  "cpuPlatform": "AMD Rome",
+  "creationTimestamp": "2022-07-10T11:33:42.329-07:00",
+  "deletionProtection": false,
+  "disks": [
+    {
+      "architecture": "X86_64",
+      "guestOsFeatures": [
+        {
+          "type": "UEFI_COMPATIBLE"
+        },
+        {
+          "type": "VIRTIO_SCSI_MULTIQUEUE"
+        },
+        {
+          "type": "GVNIC"
+        }
+      ],
+      "type": "PERSISTENT",
+      "licenses": [
+        "projects/debian-cloud/global/licenses/debian-11-bullseye"
+      ],
+      "deviceName": "persistent-disk-0",
+      "autoDelete": true,
+      "source": "projects/terraformdemo-355914/zones/us-central1-c/disks/test",
+      "index": 0,
+      "boot": true,
+      "kind": "compute#attachedDisk",
+      "mode": "READ_WRITE",
+      "interface": "SCSI",
+      "diskSizeGb": "10"
+    }
+  ],
+  "fingerprint": "JBuzFvUnTPc=",
+  "id": "1767609212762236266",
+  "kind": "compute#instance",
+  "labelFingerprint": "42WmSpB8rSM=",
+  "lastStartTimestamp": "2022-07-10T11:33:56.342-07:00",
+  "machineType": "projects/terraformdemo-355914/zones/us-central1-c/machineTypes/e2-medium",
+  "metadata": {
+    "fingerprint": "c5lwpQjOf6Q=",
+    "kind": "compute#metadata"
+  },
+  "name": "test",
+  "networkInterfaces": [
+    {
+      "stackType": "IPV4_ONLY",
+      "name": "nic0",
+      "network": "projects/terraformdemo-355914/global/networks/vpc-emojiapp",
+      "accessConfigs": [
+        {
+          "name": "external-nat",
+          "type": "ONE_TO_ONE_NAT",
+          "natIP": "35.209.161.200",
+          "kind": "compute#accessConfig",
+          "networkTier": "STANDARD"
+        }
+      ],
+      "subnetwork": "projects/terraformdemo-355914/regions/us-central1/subnetworks/subnet-emojiapp-1",
+      "networkIP": "10.100.0.3",
+      "fingerprint": "4_JmiuOCLmk=",
+      "kind": "compute#networkInterface"
+    }
+  ],
+  "scheduling": {
+    "onHostMaintenance": "MIGRATE",
+    "provisioningModel": "STANDARD",
+    "automaticRestart": true,
+    "preemptible": false
+  },
+  "selfLink": "projects/terraformdemo-355914/zones/us-central1-c/instances/test",
+  "serviceAccounts": [
+    {
+      "email": "819128255673-compute@developer.gserviceaccount.com",
+      "scopes": [
+        "https://www.googleapis.com/auth/cloud-platform"
+      ]
+    }
+  ],
+  "shieldedInstanceConfig": {
+    "enableSecureBoot": false,
+    "enableVtpm": true,
+    "enableIntegrityMonitoring": true
+  },
+  "shieldedInstanceIntegrityPolicy": {
+    "updateAutoLearnPolicy": true
+  },
+  "shieldedVmConfig": {
+    "enableSecureBoot": false,
+    "enableVtpm": true,
+    "enableIntegrityMonitoring": true
+  },
+  "shieldedVmIntegrityPolicy": {
+    "updateAutoLearnPolicy": true
+  },
+  "startRestricted": false,
+  "status": "RUNNING",
+  "tags": {
+    "fingerprint": "42WmSpB8rSM="
+  },
+  "zone": "projects/terraformdemo-355914/zones/us-central1-c"
+}
