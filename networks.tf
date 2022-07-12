@@ -45,3 +45,18 @@ resource "google_compute_firewall" "vpc_emojiapp" {
   target_service_accounts = ["819128255673-compute@developer.gserviceaccount.com"]
 
 }
+
+resource "google_compute_global_address" "private_ip_address" {
+  name          = "private-ip-address"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = 20
+  address       = "10.100.32.0"
+  network       = google_compute_network.vpc_emojiapp.id
+}
+
+resource "google_service_networking_connection" "private_vpc_connection" {
+  network                 = google_compute_network.vpc_emojiapp.id
+  service                 = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
+}
