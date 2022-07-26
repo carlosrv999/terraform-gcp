@@ -60,3 +60,15 @@ resource "google_container_cluster" "cluster-emojiapp" {
   }
 
 }
+
+resource "null_resource" "update_manifests" {
+  provisioner "local-exec" {
+    command = "bash update-manifests.sh ${google_sql_database_instance.cloudsql_emojiapi.private_ip_address} ${google_sql_database_instance.cloudsql_voteapi.private_ip_address}"
+  }
+
+  depends_on = [
+    google_sql_user.emojiuser,
+    google_sql_user.voteuser,
+  ]
+
+}
