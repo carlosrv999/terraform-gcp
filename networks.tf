@@ -8,21 +8,21 @@ resource "google_compute_network" "vpc_emojiapp" {
 }
 
 resource "google_compute_subnetwork" "subnet_emojiapp_1" {
-  name                      = "subnet-emojiapp-1"
-  ip_cidr_range             = "10.100.0.0/21"
-  network                   = google_compute_network.vpc_emojiapp.id
-  description               = "subnet 1 for emojiapp"
-  stack_type                = "IPV4_ONLY"
-  private_ip_google_access  = true
+  name                     = "subnet-emojiapp-1"
+  ip_cidr_range            = "10.100.0.0/21"
+  network                  = google_compute_network.vpc_emojiapp.id
+  description              = "subnet 1 for emojiapp"
+  stack_type               = "IPV4_ONLY"
+  private_ip_google_access = true
 }
 
 resource "google_compute_subnetwork" "subnet_emojiapp_2" {
-  name                      = "subnet-emojiapp-2"
-  ip_cidr_range             = "10.100.8.0/21"
-  network                   = google_compute_network.vpc_emojiapp.id
-  description               = "subnet 2 for emojiapp"
-  stack_type                = "IPV4_ONLY"
-  private_ip_google_access  = true
+  name                     = "subnet-emojiapp-2"
+  ip_cidr_range            = "10.100.8.0/21"
+  network                  = google_compute_network.vpc_emojiapp.id
+  description              = "subnet 2 for emojiapp"
+  stack_type               = "IPV4_ONLY"
+  private_ip_google_access = true
 }
 
 resource "google_compute_firewall" "vpc_emojiapp" {
@@ -59,4 +59,14 @@ resource "google_service_networking_connection" "private_vpc_connection" {
   network                 = google_compute_network.vpc_emojiapp.id
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
+}
+
+resource "google_compute_global_address" "ip_api" {
+  name         = "global-voteapi-ip"
+  address_type = "EXTERNAL"
+}
+
+resource "google_compute_global_address" "ip_webapp_emojivote_api" {
+  name         = "global-webapp-emojivote-ip"
+  address_type = "EXTERNAL"
 }

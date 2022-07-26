@@ -1,0 +1,83 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-vote-api
+  namespace: emojivote
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: global-voteapi-ip
+    networking.gke.io/v1beta1.FrontendConfig: redirect-config
+spec:
+  tls:
+  - hosts:
+    - api.carlosramirezvera.org
+    secretName: cert-api-carlosramirezvera-org
+  rules:
+  - host: api.carlosramirezvera.org
+    http:
+      paths:
+      - path: /votes
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: vote
+            port:
+              number: 3001
+      - path: /emoji
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: emoji
+            port:
+              number: 3000
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-frontend-emojivote
+  namespace: emojivote
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: global-webapp-emojivote-ip
+    networking.gke.io/v1beta1.FrontendConfig: redirect-config
+spec:
+  tls:
+  - hosts:
+    - www.carlosramirezvera.org
+    - carlosramirezvera.org
+    secretName: cert-www-carlosramirezvera-org
+  rules:
+  - host: www.carlosramirezvera.org
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: frontend-emojivote
+            port:
+              number: 80
+  - host: carlosramirezvera.org
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: frontend-emojivote
+            port:
+              number: 80
+
+---
+
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: redirect-config
+  namespace: emojivote
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: MOVED_PERMANENTLY_DEFAULT

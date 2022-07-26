@@ -1,5 +1,5 @@
 resource "google_sql_database_instance" "cloudsql_emojiapi" {
-  name                = "cloudsql-emojiapi114"
+  name                = "cloudsql-emoji-1"
   database_version    = "MYSQL_8_0"
   region              = "us-central1"
   deletion_protection = false
@@ -45,7 +45,7 @@ resource "google_sql_database_instance" "cloudsql_emojiapi" {
 }
 
 resource "google_sql_database_instance" "cloudsql_voteapi" {
-  name                = "cloudsql-voteapi114"
+  name                = "cloudsql-vote-1"
   database_version    = "MYSQL_8_0"
   region              = "us-central1"
   deletion_protection = false
@@ -112,4 +112,12 @@ resource "google_sql_user" "voteuser" {
     command = "mysql -h ${google_sql_database_instance.cloudsql_voteapi.public_ip_address} -u ${self.name} -p${self.password} < ./initdb/votedb.sql"
   }
 
+}
+
+output "emoji_db_ip" {
+  value = google_sql_database_instance.cloudsql_emojiapi.private_ip_address
+}
+
+output "vote_db_ip" {
+  value = google_sql_database_instance.cloudsql_voteapi.private_ip_address
 }
