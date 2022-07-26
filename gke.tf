@@ -84,8 +84,8 @@ resource "null_resource" "install_argo" {
   }
 
   depends_on = [
-    google_sql_user.emojiuser,
-    google_sql_user.voteuser,
+    null_resource.update_manifests,
+    google_container_cluster.cluster-emojiapp,
   ]
 
 }
