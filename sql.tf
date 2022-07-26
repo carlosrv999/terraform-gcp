@@ -1,5 +1,5 @@
 resource "google_sql_database_instance" "cloudsql_emojiapi" {
-  name                = "cloudsql-emoji-1"
+  name                = "cloudsql-emoji-3"
   database_version    = "MYSQL_8_0"
   region              = "us-central1"
   deletion_protection = false
@@ -45,7 +45,7 @@ resource "google_sql_database_instance" "cloudsql_emojiapi" {
 }
 
 resource "google_sql_database_instance" "cloudsql_voteapi" {
-  name                = "cloudsql-vote-1"
+  name                = "cloudsql-vote-3"
   database_version    = "MYSQL_8_0"
   region              = "us-central1"
   deletion_protection = false
