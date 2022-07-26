@@ -59,11 +59,28 @@ resource "google_container_cluster" "cluster-emojiapp" {
     disabled = false
   }
 
+  provisioner "local-exec" {
+    when    = destroy
+    command = "bash delete-application-resources.sh"
+  }
+
 }
 
 resource "null_resource" "update_manifests" {
   provisioner "local-exec" {
     command = "bash update-manifests.sh ${google_sql_database_instance.cloudsql_emojiapi.private_ip_address} ${google_sql_database_instance.cloudsql_voteapi.private_ip_address}"
+  }
+
+  depends_on = [
+    google_sql_user.emojiuser,
+    google_sql_user.voteuser,
+  ]
+
+}
+
+resource "null_resource" "install_argo" {
+  provisioner "local-exec" {
+    command = "bash install-argocd.sh us-central1 ${google_container_cluster.cluster-emojiapp.name}"
   }
 
   depends_on = [

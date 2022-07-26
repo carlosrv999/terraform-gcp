@@ -1,9 +1,12 @@
 #!/bin/bash
 
+region=$1
+cluster_name=$2
+
 # SCRIPT PARA INSTALAR ARGOCD EN EL CLUSTER RECIEN CREADO POR TERRAFORM
 
 # Setear kubeconfig
-gcloud container clusters get-credentials cluster-emojiapp --region us-central1
+gcloud container clusters get-credentials $cluster_name --region $region
 
 # Crear namespace para Argo CD, luego instalarlo
 kubectl create namespace argocd
